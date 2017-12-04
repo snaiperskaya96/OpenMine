@@ -41,9 +41,10 @@ void Shader::AddShader(ShaderFile SFile)
     if (Compiled == GL_FALSE) {
         GLint LogLength = 0;
         glGetShaderiv(SFile.ShaderId, GL_INFO_LOG_LENGTH, &LogLength);
-        GLchar ErrorLog[LogLength] = {0};
+        auto ErrorLog = new GLchar[LogLength];
         glGetShaderInfoLog(SFile.ShaderId, LogLength, &LogLength, &ErrorLog[0]);
         std::cout << "Shader linking error: " << &ErrorLog[0] << std::endl;
+        delete[] ErrorLog;
         glDeleteShader(SFile.ShaderId);
     }
 
@@ -63,9 +64,10 @@ void Shader::Link()
     if (Linked == GL_FALSE) {
         GLint LogLength = 0;
         glGetProgramiv(ProgramId, GL_INFO_LOG_LENGTH, &LogLength);
-        GLchar ErrorLog[LogLength] = {0};
+        auto ErrorLog = new GLchar[LogLength];
         glGetProgramInfoLog(ProgramId, LogLength, &LogLength, &ErrorLog[0]);
         std::cout << "Program linking error: " << ErrorLog << std::endl;
+        delete[] ErrorLog;
         glDeleteProgram(ProgramId);
     }
 }

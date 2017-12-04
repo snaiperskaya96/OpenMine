@@ -132,7 +132,7 @@ void OpenMine::GlfwErrorCallback(int Error, const char* Description)
     std::cout << "GLFW returned an error (" << Error << "): " << Description << std::endl;
 }
 
-void OpenMine::GlfwKeyCallback(class GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
+void OpenMine::GlfwKeyCallback(struct GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
 {
     if (Key == GLFW_KEY_ESCAPE) {
         glfwSetWindowShouldClose(Window, true);

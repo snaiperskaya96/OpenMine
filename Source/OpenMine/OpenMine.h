@@ -12,9 +12,9 @@ public:
     static void Init();
 protected:
     static void GlfwErrorCallback(int Error, const char* Description);
-    static void GlfwKeyCallback(class GLFWwindow* Window, int Key, int Scancode, int Action, int Mods);
+    static void GlfwKeyCallback(struct GLFWwindow* Window, int Key, int Scancode, int Action, int Mods);
 protected:
-    static class GLFWwindow* Window;
+    static struct GLFWwindow* Window;
 };
 
 
