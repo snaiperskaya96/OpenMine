@@ -14,7 +14,7 @@ public:
     Texture(unsigned char* Buffer);
     static Texture* FromName(std::string Name);
 
-    void Bind();
+    void Bind(GLuint UniformId);
 
 protected:
     unsigned char* RawBuffer;

@@ -29,9 +29,9 @@ Texture *Texture::FromName(std::string Name)
     }
 #endif
     int Width, Height, Comp;
-    unsigned char* Image = stbi_load(("Textures/" + Name).c_str(), &Width, &Height, &Comp, STBI_rgb);
+    unsigned char* Image = stbi_load(("Textures/" + Name).c_str(), &Width, &Height, &Comp, STBI_rgb_alpha);
     auto T = new Texture(Image);
-    stbi_image_free(Image);
+    //stbi_image_free(Image);
     return T;
 
     return nullptr;
@@ -43,19 +43,20 @@ Texture::Texture(unsigned char *Buffer)
     glGenTextures(1, &TextureId);
     glBindTexture(GL_TEXTURE_2D, TextureId);
 
-    glTexImage2D(GL_TEXTURE, 0, GL_RGB, 128, 128, 0, GL_RGB, GL_UNSIGNED_BYTE, RawBuffer);
+    glTexImage2D(GL_TEXTURE, 0, GL_RGBA, 1024, 1024, 0, GL_RGBA, GL_UNSIGNED_BYTE, RawBuffer);
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_REPEAT);
     //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
     //glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
-void Texture::Bind()
+void Texture::Bind(GLuint UniformId)
 {
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, TextureId);
-    glUniform1i(TextureId, 0);
+    glUniform1i(UniformId, 0);
+
 }

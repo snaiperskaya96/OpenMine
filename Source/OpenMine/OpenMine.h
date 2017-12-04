@@ -13,8 +13,11 @@ public:
 protected:
     static void GlfwErrorCallback(int Error, const char* Description);
     static void GlfwKeyCallback(struct GLFWwindow* Window, int Key, int Scancode, int Action, int Mods);
+    static void InitializeOpenGl();
+    static void SetupWindow();
 protected:
     static struct GLFWwindow* Window;
+
 };
 
 

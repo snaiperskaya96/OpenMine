@@ -8,8 +8,8 @@
 #include <utility>
 #include <vector>
 #include <string>
-#include <glad/glad.h>
 #include <map>
+#include <glad/glad.h>
 
 enum class ShaderType : int
 {
