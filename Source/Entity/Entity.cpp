@@ -15,7 +15,9 @@ void Entity::Draw()
 
     glUniformMatrix4fv(MvpUniform, 1, GL_FALSE, &MvpMat[0][0]);
 
-    glDrawArrays(GL_LINES, 0, (GLsizei) Verticles.size() / 3);
+    glBindBuffer(GL_ARRAY_BUFFER, VertexVbo);
+
+    glDrawArrays(GL_TRIANGLES, 0, (GLsizei) Verticles.size() / 3);
 }
 
 void Entity::Begin()
@@ -25,10 +27,15 @@ void Entity::Begin()
 
 void Entity::Initialise()
 {
+    EntityShader->Use();
+
     CoordAttrib = glGetAttribLocation(EntityShader->GetProgramId(), "Coordinates");
     UvAttrib = glGetAttribLocation(EntityShader->GetProgramId(), "Uv");
     MvpUniform = glGetUniformLocation(EntityShader->GetProgramId(), "Mvp");
     TextureUniform = glGetUniformLocation(EntityShader->GetProgramId(), "Texture");
+
+    std::cout << "Coord Attrib: " << CoordAttrib << std::endl
+                                  << "Uv Attrib: " << UvAttrib << std::endl;
 
     glGenBuffers(1, &VertexVbo);
     glBindBuffer(GL_ARRAY_BUFFER, VertexVbo);

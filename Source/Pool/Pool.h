@@ -11,7 +11,6 @@
 class Pool
 {
 public:
-    virtual void Init() = 0;
 protected:
     static std::vector<GLuint> Vaos;
 };

@@ -6,9 +6,9 @@
 #include <Texture/Texture.h>
 #include <glm/detail/type_mat.hpp>
 #include <glm/detail/type_mat2x2.hpp>
-#include <glm/gtc/matrix_transform.inl>
 #include <Camera/Camera.h>
 #include <Pool/EntityPool.h>
+#include <glm/ext.hpp>
 #include "OpenMine.h"
 #include "Entity/Triangle.h"
 
@@ -30,9 +30,9 @@ void OpenMine::InitializeOpenGl()
     glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, GLFW_TRUE);
 }
 
-void OpenMine::GlDebugMessage(GLenum source​, GLenum type​, GLuint id​, GLenum severity​, GLsizei length​, const GLchar* message​, const void* userParam​)
+void OpenMine::GlDebugMessage(GLenum Source, GLenum Type, GLuint Id, GLenum Severity, GLsizei Length, const GLchar* Message, const void* UserParam)
 {
-	std::cout << "OpenGL Debug Message received: " << message​ << std::endl;
+	std::cout << "OpenGL Debug Message received: " << Message << std::endl;
 }
 
 void OpenMine::SetupWindow()
@@ -71,7 +71,7 @@ void OpenMine::Init()
     InitializeOpenGl();
     SetupWindow();
 
-    Camera::ViewMatrix = glm::lookAt(glm::vec3(4.f,3.f,3.f), glm::vec3(0.f, 0.f, 0.f), glm::vec3(0.f, 1.f, 0.f));
+    Camera::ViewMatrix = glm::lookAt(glm::vec3{4.f,3.f,3.f}, glm::vec3{0.f, 0.f, 0.f}, glm::vec3{0.f, 1.f, 0.f});
     Camera::ProjectionMatrix = glm::perspective(glm::radians(45.f), 4.0f/3.0f, 0.1f, 100.f);
 
     EntityPool::Init();
@@ -83,13 +83,6 @@ void OpenMine::Init()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         EntityPool::Draw();
-
-        if (glfwGetKey(Window, GLFW_KEY_DOWN) == GLFW_PRESS) {
-            Camera::ViewMatrix = glm::translate(Camera::ViewMatrix, {0.f, 0.f, -.1f});
-        }
-        if (glfwGetKey(Window, GLFW_KEY_UP) == GLFW_PRESS) {
-            Camera::ViewMatrix = glm::translate(Camera::ViewMatrix, {0.f, 0.f, .1f});
-        }
 
         glfwSwapBuffers(Window);
         glfwPollEvents();

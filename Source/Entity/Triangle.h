@@ -35,8 +35,8 @@ Triangle::Triangle() : Entity()
 
     EntityShader = new Shader(
             {
-                    {"base-texture", ShaderType::Vertex},
-                    {"base-texture", ShaderType::Fragment},
+                    {"test", ShaderType::Vertex},
+                    {"test", ShaderType::Fragment},
             }
     );
 }

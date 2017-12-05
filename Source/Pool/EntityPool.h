@@ -11,7 +11,7 @@
 class EntityPool : public Pool
 {
 public:
-    inline static void Init()
+    static void Init()
     {
         GLuint Vao;
         glGenVertexArrays(1, &Vao);
