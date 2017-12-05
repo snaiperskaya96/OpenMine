@@ -8,6 +8,7 @@
 #include <utility>
 #include <vector>
 #include <string>
+#include <iostream>
 #include <map>
 #include <glad/glad.h>
 
@@ -28,6 +29,9 @@ struct ShaderFile
                 return "Vertex";
             case ShaderType::Fragment:
                 return "Fragment";
+            default: // All case covered but MSVC still blames about it...
+                std::cout << "Invalid Shader Type for shader " << Name << std::endl;
+                return "";
         }
     }
 
@@ -38,6 +42,9 @@ struct ShaderFile
                 return GL_VERTEX_SHADER;
             case ShaderType::Fragment:
                 return GL_FRAGMENT_SHADER;
+            default: // All case covered but MSVC still blames about it...
+                std::cout << "Invalid Shader Type for shader " << Name << ". Threating it as a vertex shader" << std::endl;
+                return GL_VERTEX_SHADER;
         }
     }
 

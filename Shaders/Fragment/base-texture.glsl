@@ -3,7 +3,7 @@
 in vec2 UvCoord;
 out vec4 Color;
 
-uniform sampler2D Texture;
+layout(binding=0) uniform sampler2D Texture;
 
 void main() {
     Color = texture (Texture, UvCoord).rgba;

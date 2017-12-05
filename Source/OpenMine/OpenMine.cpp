@@ -44,9 +44,13 @@ void OpenMine::SetupWindow()
 
     glClearColor(0.f, 0.f, 0.4f, 0.f);
 
-    glEnable(GL_TEXTURE_2D);
+    //glEnable(GL_TEXTURE_2D);
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
+
     glDepthFunc(GL_LESS);
+    glCullFace(GL_BACK);
+    glFrontFace(GL_CCW);
 }
 
 void OpenMine::Init()
@@ -66,15 +70,15 @@ void OpenMine::Init()
     Program.Link();
 
     const GLfloat Verticles[] = {
-            -0.666667, -0.666667, -0.000000,
-            1.333333, -0.666667, -0.000000,
-            -0.666667, 1.333333, 0.000000,
+            -0.666667f, -0.666667f, -0.000000f,
+            1.333333f, -0.666667f, -0.000000f,
+            -0.666667f, 1.333333f, 0.000000f,
     };
 
     const GLfloat UVs[] = {
-            0.0, 0.5,
-            0.500000, 0.0,
-            0.5, 1.0,
+            0.0f, 0.5f,
+            0.500000f, 0.0f,
+            0.5f, 1.0f,
     };
 
     const GLfloat Colors[] = {
@@ -114,9 +118,9 @@ void OpenMine::Init()
     glVertexAttribPointer(CoordAttrib, 3, GL_FLOAT, GL_FALSE, 0, (void*) 0);
     glEnableVertexAttribArray(CoordAttrib);
 
-    glBindBuffer( GL_ARRAY_BUFFER, ColorId );
-    glVertexAttribPointer(ColorAttrib, 3, GL_FLOAT, GL_FALSE, 0, (void*) 0);
-    glEnableVertexAttribArray(ColorAttrib);
+    //glBindBuffer( GL_ARRAY_BUFFER, ColorId );
+    //glVertexAttribPointer(ColorAttrib, 3, GL_FLOAT, GL_FALSE, 0, (void*) 0);
+    //glEnableVertexAttribArray(ColorAttrib);
 
     glBindBuffer( GL_ARRAY_BUFFER, UvId );
     glVertexAttribPointer(UvAttrib, 2, GL_FLOAT, GL_FALSE, 0, (void*) 0);
@@ -132,13 +136,13 @@ void OpenMine::Init()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         Program.Use();
+        Tex->Bind(TextureUniform);
 
         glBindVertexArray( vao );
 
         glm::mat4 MvpMat = Projection * View * Model;
 
         glUniformMatrix4fv(MvpUniform, 1, GL_FALSE, &MvpMat[0][0]);
-        Tex->Bind(TextureUniform);
 
         glDrawArrays(GL_TRIANGLES, 0, sizeof(Verticles)/3);
 

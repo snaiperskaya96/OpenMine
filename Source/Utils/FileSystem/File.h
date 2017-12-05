@@ -6,6 +6,11 @@
 #define OPENMINE_FILE_H
 
 #include <string>
+#ifdef WIN32
+#define Separator (char)'\\'
+#else
+#define Separator (char)'/'
+#endif
 
 class File
 {

@@ -11,14 +11,19 @@
 class Texture
 {
 public:
-    Texture(unsigned char* Buffer);
+    explicit Texture(int Width, int Height, int Channels, unsigned char *Buffer);
     static Texture* FromName(std::string Name);
 
     void Bind(GLuint UniformId);
 
+    inline GLuint GetId() { return TextureId; }
+
 protected:
     unsigned char* RawBuffer;
     GLuint TextureId;
+    int Width;
+    int Height;
+    int Channels;
 };
 
 
