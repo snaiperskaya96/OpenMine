@@ -11,20 +11,26 @@
 
 void Entity::Draw()
 {
-    EntityShader->Use();
+    BindBuffersToVao();
+
     Textures[0]->Bind(TextureUniform);
 
 	glm::mat4 MvpMat = Camera::ProjectionMatrix * Camera::ViewMatrix * ModelMatrix;
 
     glUniformMatrix4fv(MvpUniform, 1, GL_FALSE, &MvpMat[0][0]);
 
-    glDrawArrays(GL_TRIANGLES, 0, 3);
+    if (Indices.empty()) {
+        glDrawArrays(GL_TRIANGLES, 0, (GLsizei)Verticles.size() / 3);
+    } else {
+        glDrawElements(GL_TRIANGLES, (GLsizei)Indices.size(), GL_UNSIGNED_INT, nullptr);
+    }
+
 
     if(glfwGetKey(OpenMine::GetWindow(), GLFW_KEY_UP) == GLFW_PRESS) {
-        ModelMatrix = glm::translate(ModelMatrix, glm::vec3{0.f, 0.f, 0.1f});
+        //ModelMatrix = glm::translate(ModelMatrix, glm::vec3{0.f, 0.f, 0.1f});
     }
     if(glfwGetKey(OpenMine::GetWindow(), GLFW_KEY_DOWN) == GLFW_PRESS) {
-        ModelMatrix = glm::translate(ModelMatrix, glm::vec3{0.f, 0.f, -0.1f});
+        //ModelMatrix = glm::translate(ModelMatrix, glm::vec3{0.f, 0.f, -0.1f});
     }
 }
 
@@ -47,22 +53,40 @@ void Entity::Initialise()
     // Remember to use the actual size in bytes
     glBufferData(GL_ARRAY_BUFFER, Verticles.size() * sizeof(float), &Verticles[0], GL_STATIC_DRAW);
 
-    glGenBuffers(1, &UvVbo);
-    glBindBuffer(GL_ARRAY_BUFFER, UvVbo);
-    glBufferData(GL_ARRAY_BUFFER, UVs.size() * sizeof(float), &UVs[0], GL_STATIC_DRAW);
+    if (!UVs.empty()) {
+        glGenBuffers(1, &UvVbo);
+        glBindBuffer(GL_ARRAY_BUFFER, UvVbo);
+        glBufferData(GL_ARRAY_BUFFER, UVs.size() * sizeof(float), &UVs[0], GL_STATIC_DRAW);
+    }
+
+    if (!Indices.empty()) {
+        glGenBuffers(1, &ElementVbo);
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ElementVbo);
+        glBufferData(GL_ELEMENT_ARRAY_BUFFER, Indices.size() * sizeof(GLuint), &Indices[0], GL_STATIC_DRAW);
+    }
 
     EntityPool::RegisterEntity(this);
 }
 
 void Entity::BindBuffersToVao()
 {
+	EntityShader->Use();
+
     glBindBuffer(GL_ARRAY_BUFFER, VertexVbo);
     glVertexAttribPointer((GLuint)CoordAttrib, 3, GL_FLOAT, GL_FALSE, 0, (void*) 0);
     glEnableVertexAttribArray((GLuint)CoordAttrib);
 
-    glBindBuffer(GL_ARRAY_BUFFER, UvVbo);
-    glVertexAttribPointer((GLuint)UvAttrib, 2, GL_FLOAT, GL_FALSE, 0, (void*) 0);
-    glEnableVertexAttribArray((GLuint)UvAttrib);
+    if (!UVs.empty()) {
+        glBindBuffer(GL_ARRAY_BUFFER, UvVbo);
+        glVertexAttribPointer((GLuint) UvAttrib, 2, GL_FLOAT, GL_FALSE, 0, (void *) 0);
+        glEnableVertexAttribArray((GLuint) UvAttrib);
+    }
+
+    if (!Indices.empty()) {
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ElementVbo);
+    }
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 Entity::Entity()

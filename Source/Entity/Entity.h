@@ -25,7 +25,7 @@ protected:
 protected:
     glm::mat4 ModelMatrix;
     std::vector<GLfloat> Verticles;
-    std::vector<GLuint> Faces;
+    std::vector<GLuint> Indices;
     std::vector<GLfloat> UVs;
     std::vector<Texture*> Textures;
     Shader* EntityShader;
@@ -34,6 +34,7 @@ protected:
     GLint UvAttrib;
     GLint TextureUniform;
     GLuint VertexVbo;
+    GLuint ElementVbo;
     GLuint UvVbo;
     bool HasBegun = false;
 };
