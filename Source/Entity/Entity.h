@@ -19,6 +19,7 @@ public:
     void Begin();
     void Draw();
     void Initialise();
+    void SetRelativeLocation(glm::vec3 Location);
 protected:
     void BindBuffersToVao();
 protected:
@@ -28,11 +29,10 @@ protected:
     std::vector<GLfloat> UVs;
     std::vector<Texture*> Textures;
     Shader* EntityShader;
-    GLuint MvpUniform;
-    GLuint CoordAttrib;
-    GLuint ColorAttrib;
-    GLuint UvAttrib;
-    GLuint TextureUniform;
+    GLint MvpUniform;
+    GLint CoordAttrib;
+    GLint UvAttrib;
+    GLint TextureUniform;
     GLuint VertexVbo;
     GLuint UvVbo;
     bool HasBegun = false;

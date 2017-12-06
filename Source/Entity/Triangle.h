@@ -16,13 +16,9 @@ public:
 Triangle::Triangle() : Entity()
 {
     Verticles = {
-          //  -0.666667f, -0.666667f, -0.000000f,
-            //1.333333f, -0.666667f, -0.000000f,
-            //-0.666667f, 1.333333f, 0.000000f,
-
-            -1.f, -1.f, .75f,
-            0.f, 1.f, .75f,
-            1.f, -1.f, .75f
+            -0.666667f, -0.666667f, -0.000000f,
+            1.333333f, -0.666667f, -0.000000f,
+            -0.666667f, 1.333333f, 0.000000f,
     };
 
     UVs = {
@@ -35,8 +31,8 @@ Triangle::Triangle() : Entity()
 
     EntityShader = new Shader(
             {
-                    {"test", ShaderType::Vertex},
-                    {"test", ShaderType::Fragment},
+                    {"base-texture", ShaderType::Vertex},
+                    {"base-texture", ShaderType::Fragment},
             }
     );
 }

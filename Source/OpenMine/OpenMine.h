@@ -11,6 +11,7 @@ class OpenMine
 {
 public:
 	static void Init();
+    static struct GLFWwindow* GetWindow() { return Window; }
 protected:
 	static void GlDebugMessage(GLenum Source, GLenum Type, GLuint Id, GLenum Severity, GLsizei Length, const GLchar* Message, const void* UserParam);
 	static void GlfwErrorCallback(int Error, const char* Description);

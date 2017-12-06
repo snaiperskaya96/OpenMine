@@ -76,8 +76,10 @@ void OpenMine::Init()
 
     EntityPool::Init();
 
-    Triangle T;
+    Triangle T, T2;
     T.Initialise();
+    T2.Initialise();
+    T2.SetRelativeLocation({1.2f, -1.0f, 0.5f});
 
     while (!glfwWindowShouldClose(Window)) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
