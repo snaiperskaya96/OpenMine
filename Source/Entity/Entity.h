@@ -18,25 +18,16 @@ public:
     Entity();
     void Begin();
     void Draw();
-    void Initialise();
+
     void SetRelativeLocation(glm::vec3 Location);
+    void AddComponent(class Component *Comp);
+
+    glm::mat4 GetModelMatrix();
 protected:
-    void BindBuffersToVao();
-protected:
+    std::vector<class Component*> Components;
     glm::mat4 ModelMatrix;
-    std::vector<GLfloat> Verticles;
-    std::vector<GLuint> Indices;
-    std::vector<GLfloat> UVs;
-    std::vector<Texture*> Textures;
-    Shader* EntityShader;
-    GLint MvpUniform;
-    GLint CoordAttrib;
-    GLint UvAttrib;
-    GLint TextureUniform;
-    GLuint VertexVbo;
-    GLuint ElementVbo;
-    GLuint UvVbo;
     bool HasBegun = false;
+
 };
 
 

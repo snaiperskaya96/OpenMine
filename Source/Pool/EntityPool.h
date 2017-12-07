@@ -13,32 +13,21 @@ class EntityPool : public Pool
 public:
     static void Init()
     {
-        GLuint Vao;
-        glGenVertexArrays(1, &Vao);
-        glBindVertexArray(Vao);
-
-        Vaos.push_back(Vao);
-        glBindVertexArray(0);
     }
 
     inline static void RegisterEntity(Entity* NewEntity)
     {
-        glBindVertexArray(Vaos[0]);
-        NewEntity->BindBuffersToVao();
         Entities.push_back(NewEntity);
-        glBindVertexArray(0);
     }
 
     inline static void Draw()
     {
-        glBindVertexArray(Vaos[0]);
         for (auto Ent : Entities) {
             if (!Ent->HasBegun) {
                 Ent->Begin();
             }
             Ent->Draw();
         }
-        glBindVertexArray(0);
     }
 
     inline static void Destroy()
