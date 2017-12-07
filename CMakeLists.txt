@@ -22,7 +22,7 @@ set(SOURCE_FILES Source/OpenMine/OpenMine.cpp Source/OpenMine/OpenMine.h
         Source/Utils/FileSystem/File.cpp Source/Utils/FileSystem/File.h
         Source/Texture/Texture.cpp Source/Texture/Texture.h ThirdParty/stb/stb_image.h
         Source/Utils/Misc/Misc.cpp Source/Utils/Misc/Misc.h Source/Utils/String/String.cpp
-        Source/Utils/String/String.h ThirdParty/stb/stb_image_write.h)
+        Source/Utils/String/String.h ThirdParty/stb/stb_image_write.h Source/Entity/Entity.cpp Source/Entity/Entity.h Source/Cache/BaseCache.h Source/Cache/TextureCache.h Source/Pool/EntityPool.h Source/Pool/Pool.h Source/Camera/Camera.h Source/Camera/Camera.cpp Source/Pool/EntityPool.cpp Source/Pool/Pool.cpp Source/Entity/Cube.h Source/Entity/Triangle.h)
 
 add_executable(OpenMine main.cpp ${SOURCE_FILES})
 

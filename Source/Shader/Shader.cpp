@@ -12,6 +12,7 @@ Shader::Shader(std::vector<ShaderFile> ShaderFiles)
     for (auto& SFile : ShaderFiles) {
         AddShader(SFile);
     }
+    Link();
 }
 
 std::string Shader::GetShaderText(ShaderFile& SFile)

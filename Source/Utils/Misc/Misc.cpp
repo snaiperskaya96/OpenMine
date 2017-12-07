@@ -4,11 +4,16 @@
 
 #ifdef WIN32
 #include <Windows.h>
+#else
+#include <zconf.h>
+#include <sys/param.h>
+
 #endif
 
 #include <cstdio>  /* defines FILENAME_MAX */
 #include <Utils/String/String.h>
 #include <Utils/FileSystem/File.h>
+#include <cstring>
 #include "Misc.h"
 
 std::string Misc::GetExecutablePath()
@@ -24,8 +29,7 @@ std::string Misc::GetExecutablePath()
     char Pid[32];
     sprintf(Pid, "/proc/%d/exe", getpid());
     if(MIN(readlink(Pid, Buffer, FILENAME_MAX), FILENAME_MAX - 1) >= 0)
-        Buffer[bytes] = '\0';
-    return bytes;
+        Buffer[FILENAME_MAX] = '\0';
 #endif
     return String::RightTrimCopy(std::string(Buffer, FILENAME_MAX));
 }
