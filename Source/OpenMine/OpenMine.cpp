@@ -38,7 +38,7 @@ void OpenMine::GlDebugMessage(GLenum Source, GLenum Type, GLuint Id, GLenum Seve
 
 void OpenMine::SetupWindow()
 {
-    Window = glfwCreateWindow(1024, 1024, "OpenMine", nullptr, nullptr);
+    Window = glfwCreateWindow(1024, 768, "OpenMine", nullptr, nullptr);
     if (!Window) {
         std::cout << "Failed to initialize OpenGL Window." << std::endl;
         exit(1);
@@ -77,8 +77,8 @@ void OpenMine::Init()
 
     for (int i = 0; i < 3; i++) {
         auto C = new Cube();
-        C->SetRelativeLocation({i * 2.1, 0, 0});
-        C->Initialise();
+        C->SetRelativeLocation({i * 2, 0, 0});
+        //C->Initialise();
     }
 
    // T2.Initialise();

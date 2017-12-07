@@ -6,14 +6,13 @@
 
 #include <cstring>
 #include <glad/glad.h>
-#include <Utils/Misc/Misc.h>
 #include <Utils/FileSystem/File.h>
 #include "stb_image.h"
 #include "Texture.h"
 
 Texture *Texture::FromName(std::string Name)
 {
-    std::string Path = Misc::GetExecutableDir() + "Textures" + Separator + Name;
+    std::string Path = File::GetExecutableDir() + "Textures" + Separator + Name;
     int Width, Height, Comp = 0;
     stbi_info(Path.c_str(), &Width, &Height, &Comp);
     unsigned char* Image = stbi_load(Path.c_str(), &Width, &Height, &Comp, 3);

@@ -12,6 +12,5 @@ class Pool
 {
 public:
 protected:
-    static std::vector<GLuint> Vaos;
 };
 #endif //OPENMINE_POOL_H

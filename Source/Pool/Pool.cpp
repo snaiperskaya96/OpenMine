@@ -4,4 +4,3 @@
 
 #include "Pool/Pool.h"
 
-std::vector<GLuint> Pool::Vaos;

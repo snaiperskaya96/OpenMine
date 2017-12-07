@@ -22,17 +22,19 @@ set(SOURCE_FILES Source/OpenMine/OpenMine.cpp Source/OpenMine/OpenMine.h
         Source/Utils/FileSystem/File.cpp Source/Utils/FileSystem/File.h
         Source/Texture/Texture.cpp Source/Texture/Texture.h ThirdParty/stb/stb_image.h
         Source/Utils/Misc/Misc.cpp Source/Utils/Misc/Misc.h Source/Utils/String/String.cpp
-        Source/Utils/String/String.h ThirdParty/stb/stb_image_write.h Source/Entity/Entity.cpp Source/Entity/Entity.h Source/Cache/BaseCache.h Source/Cache/TextureCache.h Source/Pool/EntityPool.h Source/Pool/Pool.h Source/Camera/Camera.h Source/Camera/Camera.cpp Source/Pool/EntityPool.cpp Source/Pool/Pool.cpp Source/Entity/Cube.h Source/Entity/Triangle.h)
+        Source/Utils/String/String.h ThirdParty/stb/stb_image_write.h Source/Entity/Entity.cpp
+        Source/Entity/Entity.h Source/Cache/BaseCache.h Source/Cache/TextureCache.h Source/Pool/EntityPool.h
+        Source/Pool/Pool.h Source/Camera/Camera.h Source/Camera/Camera.cpp Source/Pool/EntityPool.cpp
+        Source/Pool/Pool.cpp Source/Entity/Cube.h Source/Entity/Triangle.h ThirdParty/OBJ-Loader/Source/OBJ_Loader.h
+        Source/Component/Component.cpp Source/Component/Component.h Source/Component/MeshComponent.cpp
+        Source/Component/MeshComponent.h)
 
 add_executable(OpenMine main.cpp ${SOURCE_FILES})
 
 target_link_libraries(OpenMine glfw ${OPENGL_LIBRARIES} ${GLAD_LIBRARIES})
-target_include_directories(OpenMine PUBLIC Source ${OPENGL_INCLUDE_DIR} ${GLAD_INCLUDE_DIRS} ThirdParty/stb ThirdParty/glm)
-
-#add_executable(testexec test.cpp ${SOURCE_FILES})
-#target_link_libraries(testexec glfw ${OPENGL_LIBRARIES} ${GLAD_LIBRARIES} png glm)
-#target_include_directories(testexec PUBLIC Source ${OPENGL_INCLUDE_DIR} ${GLAD_INCLUDE_DIRS} ThirdParty/libpng/
-#        ThirdParty/stb ThirdParty/glm)
+target_include_directories(OpenMine PUBLIC Source ${OPENGL_INCLUDE_DIR}
+        ${GLAD_INCLUDE_DIRS} ThirdParty/stb ThirdParty/glm ThirdParty/OBJ-Loader/Source/)
 
 file(COPY ${CMAKE_SOURCE_DIR}/Shaders DESTINATION ${CMAKE_BINARY_DIR}/)
 file(COPY ${CMAKE_SOURCE_DIR}/Textures DESTINATION ${CMAKE_BINARY_DIR}/)
+file(COPY ${CMAKE_SOURCE_DIR}/Objects DESTINATION ${CMAKE_BINARY_DIR}/)
