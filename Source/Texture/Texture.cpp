@@ -2,8 +2,6 @@
 // Created by snaiperskaya on 03/12/17.
 //
 
-#define STB_IMAGE_IMPLEMENTATION
-
 #include <cstring>
 #include <glad/glad.h>
 #include <Utils/FileSystem/File.h>
