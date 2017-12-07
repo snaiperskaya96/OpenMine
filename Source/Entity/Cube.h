@@ -13,7 +13,7 @@ public:
 
 Cube::Cube() : Entity()
 {
-    std::string Path = File::CreatePath(File::GetExecutableDir() + "/Objects/Cube/TexturedCube.obj");
+    std::string Path = File::CreatePath(File::GetExecutableDir() + "/Objects/Cube/CubeTest.obj");
     for (auto Comp : MeshComponent::FromObj(Path))
         AddComponent(Comp);
 }

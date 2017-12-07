@@ -60,4 +60,12 @@ std::string File::GetExecutablePath()
     return String::RightTrimCopy(std::string(Buffer, FILENAME_MAX));
 }
 
+bool File::Exists(std::string& Path)
+{
+    std::ifstream Stream(Path);
+    bool Exists = Stream.good();
+    Stream.close();
+    return Exists;
+}
+
 

@@ -8,6 +8,7 @@
 #include "Shader/Shader.h"
 #include "Entity/Entity.h"
 #include "OBJ_Loader.h"
+#include "Utils/FileSystem/File.h"
 
 MeshComponent::MeshComponent()
 {
@@ -26,6 +27,11 @@ MeshComponent::MeshComponent()
 std::vector<MeshComponent *> MeshComponent::FromObj(std::string& ObjPath)
 {
     std::vector<MeshComponent*> Components;
+    if (!File::Exists(ObjPath)) {
+        std::cout << "MeshComponent::FromObj: Invalid obj provided (" << ObjPath << ")";
+        return Components;
+    }
+
     objl::Loader ObjLoader;
     ObjLoader.LoadFile(ObjPath);
 

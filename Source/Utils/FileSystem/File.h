@@ -19,6 +19,7 @@ public:
     static std::string CreatePath(std::string FromPath);
     static std::string GetExecutableDir();
     static std::string GetExecutablePath();
+    static bool Exists(std::string& Path);
 };
 
 

@@ -10,6 +10,7 @@
 
 Texture *Texture::FromName(std::string Name)
 {
+    stbi_set_flip_vertically_on_load(true);
     std::string Path = File::GetExecutableDir() + "Textures" + Separator + Name;
     int Width, Height, Comp = 0;
     stbi_info(Path.c_str(), &Width, &Height, &Comp);
