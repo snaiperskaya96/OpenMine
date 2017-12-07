@@ -24,6 +24,12 @@ public:
     static glm::mat4 ProjectionMatrix;
     static glm::mat4 ViewMatrix;
     static glm::vec3 CameraLocation;
+    static glm::vec3 CameraTarget;
+    static glm::vec3 CameraDirection;
+    static glm::vec3 Up;
+    static glm::vec3 CameraRight;
+    static glm::vec3 CameraUp;
+    static glm::vec3 CameraFront;
 };
 
 #endif //OPENMINE_CAMERA_H
