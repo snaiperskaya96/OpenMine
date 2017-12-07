@@ -10,8 +10,12 @@
 class Camera
 {
 public:
+    static void Init();
+    static void Draw();
+public:
     static glm::mat4 ProjectionMatrix;
     static glm::mat4 ViewMatrix;
+    static glm::vec3 CameraLocation;
 };
 
 #endif //OPENMINE_CAMERA_H

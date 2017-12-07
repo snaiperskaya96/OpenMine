@@ -9,6 +9,7 @@
 #include <Camera/Camera.h>
 #include <Pool/EntityPool.h>
 #include <glm/ext.hpp>
+#include <Entity/Cube.h>
 #include "OpenMine.h"
 #include "Entity/Triangle.h"
 
@@ -37,7 +38,7 @@ void OpenMine::GlDebugMessage(GLenum Source, GLenum Type, GLuint Id, GLenum Seve
 
 void OpenMine::SetupWindow()
 {
-    Window = glfwCreateWindow(512, 512, "OpenMine", nullptr, nullptr);
+    Window = glfwCreateWindow(1024, 1024, "OpenMine", nullptr, nullptr);
     if (!Window) {
         std::cout << "Failed to initialize OpenGL Window." << std::endl;
         exit(1);
@@ -71,23 +72,39 @@ void OpenMine::Init()
     InitializeOpenGl();
     SetupWindow();
 
-    Camera::ViewMatrix = glm::lookAt(glm::vec3{4.f,3.f,3.f}, glm::vec3{0.f, 0.f, 0.f}, glm::vec3{0.f, 1.f, 0.f});
-    Camera::ProjectionMatrix = glm::perspective(glm::radians(45.f), 4.0f/3.0f, 0.1f, 100.f);
-
+    Camera::Init();
     EntityPool::Init();
 
-    Triangle T, T2;
-    T.Initialise();
-    T2.Initialise();
-    T2.SetRelativeLocation({1.2f, -1.0f, 0.5f});
+    for (int i = 0; i < 3; i++) {
+        auto C = new Cube();
+        C->SetRelativeLocation({i * 2.1, 0, 0});
+        C->Initialise();
+    }
+
+   // T2.Initialise();
+   // T2.SetRelativeLocation({1.2f, -1.0f, 0.5f});
 
     while (!glfwWindowShouldClose(Window)) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        Camera::Draw();
         EntityPool::Draw();
 
         glfwSwapBuffers(Window);
         glfwPollEvents();
+
+        if(glfwGetKey(OpenMine::GetWindow(), GLFW_KEY_UP) == GLFW_PRESS) {
+            Camera::ViewMatrix = glm::translate(Camera::ViewMatrix, glm::vec3{0.0f, 0.f, 0.1f});
+        }
+        if(glfwGetKey(OpenMine::GetWindow(), GLFW_KEY_DOWN) == GLFW_PRESS) {
+            Camera::ViewMatrix = glm::translate(Camera::ViewMatrix, glm::vec3{0.0f, 0.f, -0.1f});
+        }
+        if(glfwGetKey(OpenMine::GetWindow(), GLFW_KEY_RIGHT) == GLFW_PRESS) {
+            Camera::ViewMatrix = glm::rotate(Camera::ViewMatrix, glm::radians(1.f), glm::vec3{0.0f, 1.f, 0.f});
+        }
+        if(glfwGetKey(OpenMine::GetWindow(), GLFW_KEY_LEFT) == GLFW_PRESS) {
+            Camera::ViewMatrix = glm::rotate(Camera::ViewMatrix, glm::radians(1.f), glm::vec3{0.0f, -1.f, 0.f});
+        }
     }
 
     glfwDestroyWindow(Window);

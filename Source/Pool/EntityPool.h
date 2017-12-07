@@ -40,6 +40,13 @@ public:
         }
         glBindVertexArray(0);
     }
+
+    inline static void Destroy()
+    {
+        for (auto Ent : Entities) {
+            delete Ent;
+        }
+    }
 protected:
     static std::vector<Entity*> Entities;
 };
