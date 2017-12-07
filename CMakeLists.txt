@@ -29,7 +29,7 @@ set(SOURCE_FILES Source/OpenMine/OpenMine.cpp Source/OpenMine/OpenMine.h
         Source/Pool/Pool.h Source/Camera/Camera.h Source/Camera/Camera.cpp Source/Pool/EntityPool.cpp
         Source/Pool/Pool.cpp Source/Entity/Cube.h Source/Entity/Triangle.h ThirdParty/OBJ-Loader/Source/OBJ_Loader.h
         Source/Component/Component.cpp Source/Component/Component.h Source/Component/MeshComponent.cpp
-        Source/Component/MeshComponent.h)
+        Source/Component/MeshComponent.h Source/Handler/Input/InputHandler.cpp Source/Handler/Input/InputHandler.h)
 
 add_executable(OpenMine main.cpp ${SOURCE_FILES})
 

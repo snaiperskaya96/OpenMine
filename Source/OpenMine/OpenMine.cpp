@@ -3,16 +3,14 @@
 //
 #include <Shader/Shader.h>
 #include "GLFW/glfw3.h"
-#include <Texture/Texture.h>
 #include <glm/detail/type_mat.hpp>
 #include <glm/detail/type_mat2x2.hpp>
 #include <Camera/Camera.h>
 #include <Pool/EntityPool.h>
 #include <glm/ext.hpp>
 #include <Entity/Cube.h>
+#include <Handler/Input/InputHandler.h>
 #include "OpenMine.h"
-#include "Entity/Triangle.h"
-
 
 GLFWwindow* OpenMine::Window;
 
@@ -38,13 +36,13 @@ void OpenMine::GlDebugMessage(GLenum Source, GLenum Type, GLuint Id, GLenum Seve
 
 void OpenMine::SetupWindow()
 {
-    Window = glfwCreateWindow(1024, 768, "OpenMine", nullptr, nullptr);
+    Window = glfwCreateWindow(1920, 1080, "OpenMine", nullptr, nullptr);
     if (!Window) {
         std::cout << "Failed to initialize OpenGL Window." << std::endl;
         exit(1);
     }
 
-    glfwSetKeyCallback(Window, &OpenMine::GlfwKeyCallback);
+    InputHandler::Init(Window);
 
     glfwMakeContextCurrent(Window);
     gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
@@ -116,10 +114,4 @@ void OpenMine::GlfwErrorCallback(int Error, const char* Description)
     std::cout << "GLFW returned an error (" << Error << "): " << Description << std::endl;
 }
 
-void OpenMine::GlfwKeyCallback(struct GLFWwindow* Window, int Key, int Scancode, int Action, int Mods)
-{
-    if (Key == GLFW_KEY_ESCAPE) {
-        glfwSetWindowShouldClose(Window, true);
-    }
-}
 
