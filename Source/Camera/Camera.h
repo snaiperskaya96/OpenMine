@@ -15,6 +15,7 @@ class Camera
 public:
     static void Init();
     static void Draw();
+    static void OnMouseMove(float X, float Y);
 protected:
     static void MoveForward();
     static void MoveBackward();
@@ -30,6 +31,14 @@ public:
     static glm::vec3 CameraRight;
     static glm::vec3 CameraUp;
     static glm::vec3 CameraFront;
+    static float DeltaTime;
+    static float MouseX;
+    static float MouseY;
+    static float Yaw;
+    static float Pitch;
+protected:
+    static float LastFrame;
+    static bool FirstMouseInput;
 };
 
 #endif //OPENMINE_CAMERA_H

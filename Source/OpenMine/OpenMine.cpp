@@ -48,7 +48,7 @@ void OpenMine::SetupWindow()
     gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
     glfwSwapInterval(1);
 
-    glClearColor(0.f, 0.f, 0.4f, 0.f);
+    glClearColor(0.20f, 0.25f, 0.25f, 0.f);
 
     //glEnable(GL_TEXTURE_2D);
     glEnable(GL_DEPTH_TEST);
@@ -81,6 +81,8 @@ void OpenMine::Init()
 
    // T2.Initialise();
    // T2.SetRelativeLocation({1.2f, -1.0f, 0.5f});
+
+    InputHandler::SetInputMode(InputMode::CURSOR, InputModeValue::CURSOR_DISABLED);
 
     while (!glfwWindowShouldClose(Window)) {
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
