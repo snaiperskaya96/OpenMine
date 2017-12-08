@@ -79,6 +79,7 @@ void Camera::Draw()
 {
     auto CurrentFrame = (float) glfwGetTime();
     DeltaTime = CurrentFrame - LastFrame;
+    glfwSetWindowTitle(OpenMine::GetWindow(), ("DeltaTime: " + std::to_string(DeltaTime) + " - FPS: " + std::to_string(1.f / DeltaTime)).c_str());
     LastFrame = CurrentFrame;
     float CameraSpeed = 2.5f * DeltaTime;
 
