@@ -3,39 +3,52 @@
 //
 
 #include <Camera/Camera.h>
+#include <Utils/FileSystem/File.h>
+#include "Cache/ShaderCache.h"
 #include "MeshComponent.h"
 #include "Texture/Texture.h"
-#include "Shader/Shader.h"
 #include "Entity/Entity.h"
 #include "OBJ_Loader.h"
-#include "Utils/FileSystem/File.h"
+#include "Cache/ObjLoaderCache.h"
 
 MeshComponent::MeshComponent()
 {
     Textures.push_back(Texture::FromName("cube.png"));
 
-    EntityShader = new Shader(
-            {
-                    {"base-texture", ShaderType::Vertex},
-                    {"base-texture", ShaderType::Fragment},
-            }
-    );
+    std::string ShaderName = "cube-shader";
 
+    EntityShader = ShaderCache::Get(ShaderName);
+    if (!EntityShader) {
+        EntityShader = new Shader(
+                {
+                        {"base-texture", ShaderType::Vertex},
+                        {"base-texture", ShaderType::Fragment},
+                }
+        );
+
+        ShaderCache::Add(ShaderName, EntityShader);
+    }
     ModelMatrix = glm::mat4(1.f);
 }
 
 std::vector<MeshComponent *> MeshComponent::FromObj(std::string& ObjPath)
 {
     std::vector<MeshComponent*> Components;
-    if (!File::Exists(ObjPath)) {
-        std::cout << "MeshComponent::FromObj: Invalid obj provided (" << ObjPath << ")";
-        return Components;
+
+    objl::Loader* ObjLoader = ObjLoaderCache::Get(ObjPath);
+
+    if (!ObjLoader) {
+        if (!File::Exists(ObjPath)) {
+            std::cout << "MeshComponent::FromObj: Invalid obj provided (" << ObjPath << ")";
+            return Components;
+        }
+
+        ObjLoader = new objl::Loader();
+        ObjLoader->LoadFile(ObjPath);
+        ObjLoaderCache::Add(ObjPath, ObjLoader);
     }
 
-    objl::Loader ObjLoader;
-    ObjLoader.LoadFile(ObjPath);
-
-    for (auto& Mesh : ObjLoader.LoadedMeshes) {
+    for (auto& Mesh : ObjLoader->LoadedMeshes) {
         auto NewComponent = new MeshComponent();
         NewComponent->Indices = Mesh.Indices;
 
@@ -96,6 +109,9 @@ void MeshComponent::Init()
     if (!Indices.empty()) {
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ElementVbo);
     }
+
+    UVs.clear();
+    Verticles.clear();
 }
 
 void MeshComponent::Draw()

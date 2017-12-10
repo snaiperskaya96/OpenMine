@@ -6,30 +6,46 @@
 #define OPENMINE_BASECACHE_H
 
 #include <map>
+#include <vector>
 
-template <class IndexType, class CacheType>
+template <class T>
+struct CacheItem
+{
+    std::string Name;
+    T* Element;
+};
+
+template <class T>
 class BaseCache
 {
 public:
-    inline static CacheType* Get(IndexType Key)
-    {
-        auto Found = Cache.find(Key);
+    static T* Get(std::string& Key);
 
-        if (Found != Cache.end()) {
-            return Found->second;
-        }
-
-        return nullptr;
-    }
-
-    inline static void Add(IndexType Key, CacheType* Value)
-    {
-        if (!Get(Key)) {
-            Cache[Key] = Value;
-        }
-    }
+    static void Add(std::string& Name, T* Value);
 protected:
-    static std::map<IndexType, CacheType*> Cache;
+    static std::vector<CacheItem<T>> Cache;
 };
+
+template<class T> std::vector<CacheItem<T>> BaseCache<T>::Cache; // only change here
+
+template<class T>
+T *BaseCache<T>::Get(std::string &Key)
+{
+    for (auto& C : Cache) {
+        if (C.Name == Key) {
+            return C.Element;
+        }
+    }
+
+    return nullptr;
+}
+
+template<class T>
+void BaseCache<T>::Add(std::string &Name, T *Value)
+{
+    if (Get(Name) == nullptr) {
+        Cache.push_back({Name, Value});
+    }
+}
 
 #endif //OPENMINE_BASECACHE_H

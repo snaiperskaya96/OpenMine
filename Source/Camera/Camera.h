@@ -15,12 +15,8 @@ class Camera
 public:
     static void Init();
     static void Draw();
+    static void SetLocation(glm::vec3 NewLocation);
     static void OnMouseMove(float X, float Y);
-protected:
-    static void MoveForward();
-    static void MoveBackward();
-    static void TurnLeft();
-    static void TurnRight();
 public:
     static glm::mat4 ProjectionMatrix;
     static glm::mat4 ViewMatrix;

@@ -10,7 +10,7 @@ class Cube : public Entity
 {
 public:
     Cube();
-    void MoveForward();
+    void Draw() override;
 };
 
 Cube::Cube() : Entity()
@@ -18,16 +18,12 @@ Cube::Cube() : Entity()
     std::string Path = File::CreatePath(File::GetExecutableDir() + "/Objects/Cube/CubeTest.obj");
     for (auto Comp : MeshComponent::FromObj(Path))
         AddComponent(Comp);
-
-
 //    InputHandler::OnKeyPress(GLFW_KEY_W, InputAction::KEY_REPEATED, this, &Cube::MoveForward);
 }
 
-
-void Cube::MoveForward()
+void Cube::Draw()
 {
-    ModelMatrix = glm::translate(ModelMatrix, glm::vec3{1.f, 0.0f, 0.0f});
+    Entity::Draw();
 }
-
 
 #endif OPENMINE_CUBE_H

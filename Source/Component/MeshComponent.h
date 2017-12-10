@@ -9,6 +9,7 @@
 #include <vector>
 #include "glm/detail/type_mat4x4.hpp"
 #include "Component.h"
+#include <string>
 
 class MeshComponent : public Component
 {

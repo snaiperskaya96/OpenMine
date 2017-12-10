@@ -27,11 +27,12 @@ bool Camera::FirstMouseInput;
 void Camera::Init()
 {
     LastFrame = DeltaTime = 0.f;
-    MouseX = MouseY = 0.f;
+    MouseX = SCREEN_WIDTH / 2;
+    MouseY = SCREEN_HEIGHT / 2;
     Pitch = Yaw = 0.f;
     FirstMouseInput = true;
 
-    CameraLocation = glm::vec3{1.f, 1.f, 1.f};
+    CameraLocation = glm::vec3{0.f, 0.f, 3.f};
     CameraTarget = glm::vec3{0.0f, 0.0f, 0.0f};
     Up = glm::vec3{0.0f, 1.0f, 0.0f};
     CameraFront = glm::vec3{0.0f, 0.0f, -1.0f};
@@ -39,9 +40,14 @@ void Camera::Init()
     CameraDirection = glm::normalize(CameraLocation - CameraTarget);
     CameraRight = glm::normalize(glm::cross(Up, CameraDirection));
     CameraUp = glm::cross(CameraDirection, CameraRight);
-    ProjectionMatrix = glm::perspective(glm::radians(45.f), (SCREEN_WIDTH * 1.f)/(SCREEN_HEIGHT * 1.f), 0.1f, 100.f);
+    ProjectionMatrix = glm::perspective(glm::radians(60.f), (SCREEN_WIDTH * 1.f)/(SCREEN_HEIGHT * 1.f), 0.1f, 100.f);
 
     InputHandler::OnMouseMove(nullptr, &Camera::OnMouseMove);
+}
+
+void Camera::SetLocation(glm::vec3 NewLocation)
+{
+    CameraLocation = NewLocation;
 }
 
 void Camera::OnMouseMove(float X, float Y)
@@ -95,22 +101,3 @@ void Camera::Draw()
         Camera::CameraLocation += glm::normalize(glm::cross(Camera::CameraFront, Camera::CameraUp)) * CameraSpeed;
 }
 
-void Camera::MoveForward()
-{
-    ViewMatrix = glm::translate(ViewMatrix, glm::vec3{0.f, 0.f, 1.f});
-}
-
-void Camera::MoveBackward()
-{
-    ViewMatrix = glm::translate(ViewMatrix, glm::vec3{0.f, 0.f, -1.f});
-}
-
-void Camera::TurnLeft()
-{
-    ViewMatrix = glm::rotate(ViewMatrix, glm::radians(-1.f), glm::vec3{0.f, 1.f, 0.f});
-}
-
-void Camera::TurnRight()
-{
-    ViewMatrix = glm::rotate(ViewMatrix, glm::radians(1.f), glm::vec3{0.f, 1.f, 0.f});
-}

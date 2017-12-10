@@ -5,11 +5,17 @@
 #include <cstring>
 #include <glad/glad.h>
 #include <Utils/FileSystem/File.h>
+#include <Utils/Thread/AsyncTask.h>
+#include <Cache/TextureCache.h>
 #include "stb_image.h"
 #include "Texture.h"
 
 Texture *Texture::FromName(std::string Name)
 {
+    auto CachedTexture = TextureCache::Get(Name);
+    if (CachedTexture) {
+        return CachedTexture;
+    }
     stbi_set_flip_vertically_on_load(true);
     std::string Path = File::GetExecutableDir() + "Textures" + Separator + Name;
     int Width, Height, Comp = 0;
@@ -19,6 +25,7 @@ Texture *Texture::FromName(std::string Name)
     T->Width = Width;
     T->Height = Height;
     T->Channels = Comp;
+    TextureCache::Add(Name, T);
     return T;
 }
 

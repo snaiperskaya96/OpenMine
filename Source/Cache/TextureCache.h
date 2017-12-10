@@ -1,20 +1,17 @@
 //
-// Created by verrignij on 05/12/2017.
+// Created by snaiperskaya on 10/12/17.
 //
 
 #ifndef OPENMINE_TEXTURECACHE_H
 #define OPENMINE_TEXTURECACHE_H
 
-#include <Texture/Texture.h>
-#include "Cache/BaseCache.h"
 
-class TextureCache : public BaseCache<std::string, Texture>
+#include <Texture/Texture.h>
+#include "BaseCache.h"
+
+class TextureCache : public BaseCache<Texture>
 {
-public:
-    static inline void Add(std::string Key, Texture* Value)
-    {
-        BaseCache::Add(Key, Value);
-    }
 };
+
 
 #endif //OPENMINE_TEXTURECACHE_H

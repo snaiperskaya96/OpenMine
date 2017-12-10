@@ -8,6 +8,7 @@ set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
 set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
 
 add_definitions(-DSTB_IMAGE_IMPLEMENTATION)
+add_definitions(-DGLM_ENABLE_EXPERIMENTAL)
 
 if (WIN32)
     set(ZLIB_ROOT "C:\\Program Files\\zlib" CACHE STRING "" FORCE)
@@ -25,11 +26,14 @@ set(SOURCE_FILES Source/OpenMine/OpenMine.cpp Source/OpenMine/OpenMine.h
         Source/Texture/Texture.cpp Source/Texture/Texture.h ThirdParty/stb/stb_image.h
         Source/Utils/Misc/Misc.cpp Source/Utils/Misc/Misc.h Source/Utils/String/String.cpp
         Source/Utils/String/String.h ThirdParty/stb/stb_image_write.h Source/Entity/Entity.cpp
-        Source/Entity/Entity.h Source/Cache/BaseCache.h Source/Cache/TextureCache.h Source/Pool/EntityPool.h
+        Source/Entity/Entity.h Source/Cache/BaseCache.h Source/Pool/EntityPool.h
         Source/Pool/Pool.h Source/Camera/Camera.h Source/Camera/Camera.cpp Source/Pool/EntityPool.cpp
         Source/Pool/Pool.cpp Source/Entity/Cube.h Source/Entity/Triangle.h ThirdParty/OBJ-Loader/Source/OBJ_Loader.h
         Source/Component/Component.cpp Source/Component/Component.h Source/Component/MeshComponent.cpp
-        Source/Component/MeshComponent.h Source/Handler/Input/InputHandler.cpp Source/Handler/Input/InputHandler.h)
+        Source/Component/MeshComponent.h Source/Handler/Input/InputHandler.cpp Source/Handler/Input/InputHandler.h
+        Source/Cache/ObjLoaderCache.h Source/Math/Math.cpp Source/Math/Math.h
+        Source/Entity/Chunk.h Source/Utils/Thread/AsyncTask.cpp Source/Utils/Thread/AsyncTask.h
+        Source/Cache/TextureCache.h Source/Cache/ShaderCache.h)
 
 add_executable(OpenMine main.cpp ${SOURCE_FILES})
 

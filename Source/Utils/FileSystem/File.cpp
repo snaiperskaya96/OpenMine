@@ -8,6 +8,7 @@
 #ifdef WIN32
 #include <Windows.h>
 #else
+#include <cstring>
 #include <zconf.h>
 #include <sys/param.h>
 #endif

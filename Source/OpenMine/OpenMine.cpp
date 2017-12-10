@@ -10,6 +10,8 @@
 #include <glm/ext.hpp>
 #include <Entity/Cube.h>
 #include <Handler/Input/InputHandler.h>
+#include <Entity/Chunk.h>
+#include <Utils/Thread/AsyncTask.h>
 #include "OpenMine.h"
 
 GLFWwindow* OpenMine::Window;
@@ -36,7 +38,7 @@ void OpenMine::GlDebugMessage(GLenum Source, GLenum Type, GLuint Id, GLenum Seve
 
 void OpenMine::SetupWindow()
 {
-    Window = glfwCreateWindow(1920, 1080, "OpenMine", nullptr, nullptr);
+    Window = glfwCreateWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "OpenMine", nullptr, nullptr);
     if (!Window) {
         std::cout << "Failed to initialize OpenGL Window." << std::endl;
         exit(1);
@@ -46,7 +48,7 @@ void OpenMine::SetupWindow()
 
     glfwMakeContextCurrent(Window);
     gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
-    glfwSwapInterval(1);
+    glfwSwapInterval(-1);
 
     glClearColor(0.20f, 0.25f, 0.25f, 0.f);
 
@@ -71,16 +73,13 @@ void OpenMine::Init()
     SetupWindow();
 
     Camera::Init();
+    Camera::SetLocation({4.f, 4.f, 4.f});
     EntityPool::Init();
 
-    for (int i = 0; i < 3; i++) {
-        auto C = new Cube();
-        C->SetRelativeLocation({i * 2, 0, 0});
-        //C->Initialise();
-    }
 
    // T2.Initialise();
    // T2.SetRelativeLocation({1.2f, -1.0f, 0.5f});
+    new Chunk();
 
     InputHandler::SetInputMode(InputMode::CURSOR, InputModeValue::CURSOR_DISABLED);
 
@@ -89,6 +88,10 @@ void OpenMine::Init()
 
         Camera::Draw();
         EntityPool::Draw();
+
+        if (AsyncTask::IsTaskAvailable(TaskThread::GAME_THREAD)) {
+            AsyncTask::GetTaskFromQueue(TaskThread::GAME_THREAD)();
+        }
 
         glfwSwapBuffers(Window);
         glfwPollEvents();

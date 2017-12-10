@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <Utils/Thread/AsyncTask.h>
 #include "Shader.h"
 #include "Utils/FileSystem/File.h"
 
