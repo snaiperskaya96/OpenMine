@@ -99,5 +99,6 @@ void Camera::Draw()
         Camera::CameraLocation -= glm::normalize(glm::cross(Camera::CameraFront, Camera::CameraUp)) * CameraSpeed;
     if (glfwGetKey(OpenMine::GetWindow(), GLFW_KEY_D) == GLFW_PRESS)
         Camera::CameraLocation += glm::normalize(glm::cross(Camera::CameraFront, Camera::CameraUp)) * CameraSpeed;
+
 }
 

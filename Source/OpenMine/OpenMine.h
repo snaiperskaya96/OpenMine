@@ -15,7 +15,6 @@ public:
 protected:
 	static void GlDebugMessage(GLenum Source, GLenum Type, GLuint Id, GLenum Severity, GLsizei Length, const GLchar* Message, const void* UserParam);
 	static void GlfwErrorCallback(int Error, const char* Description);
-	static void GlfwKeyCallback(struct GLFWwindow* Window, int Key, int Scancode, int Action, int Mods);
 	static void InitializeOpenGl();
 	static void SetupWindow();
 protected:

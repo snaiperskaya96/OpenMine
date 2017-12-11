@@ -32,14 +32,15 @@ set(SOURCE_FILES Source/OpenMine/OpenMine.cpp Source/OpenMine/OpenMine.h
         Source/Component/Component.cpp Source/Component/Component.h Source/Component/MeshComponent.cpp
         Source/Component/MeshComponent.h Source/Handler/Input/InputHandler.cpp Source/Handler/Input/InputHandler.h
         Source/Cache/ObjLoaderCache.h Source/Math/Math.cpp Source/Math/Math.h
-        Source/Entity/Chunk.h Source/Utils/Thread/AsyncTask.cpp Source/Utils/Thread/AsyncTask.h
-        Source/Cache/TextureCache.h Source/Cache/ShaderCache.h)
+        Source/Entity/Chunk/Chunk.h Source/Utils/Thread/AsyncTask.cpp Source/Utils/Thread/AsyncTask.h Source/Utils/Thread/AsyncTask.h
+        Source/Cache/TextureCache.h Source/Cache/ShaderCache.h Source/Handler/Terrain/TerrainHandler.cpp
+        Source/Handler/Terrain/TerrainHandler.h Source/Entity/Chunk/Chunk.cpp)
 
 add_executable(OpenMine main.cpp ${SOURCE_FILES})
 
 target_link_libraries(OpenMine glfw ${OPENGL_LIBRARIES} ${GLAD_LIBRARIES})
 target_include_directories(OpenMine PUBLIC Source ${OPENGL_INCLUDE_DIR}
-        ${GLAD_INCLUDE_DIRS} ThirdParty/stb ThirdParty/glm ThirdParty/OBJ-Loader/Source/)
+        ${GLAD_INCLUDE_DIRS} ThirdParty/stb ThirdParty/glm ThirdParty/OBJ-Loader/Source/ ThirdParty/PerlinNoise)
 
 file(COPY ${CMAKE_SOURCE_DIR}/Shaders DESTINATION ${CMAKE_BINARY_DIR}/)
 file(COPY ${CMAKE_SOURCE_DIR}/Textures DESTINATION ${CMAKE_BINARY_DIR}/)

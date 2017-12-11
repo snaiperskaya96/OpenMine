@@ -11,7 +11,7 @@
 
 void Entity::Draw()
 {
-    if (!IsVisible) return;
+    if (!Visible) return;
     for (auto Comp : Components) {
         Comp->Draw();
     }
@@ -47,7 +47,7 @@ void Entity::AddComponent(Component* Comp)
 
 void Entity::SetHidden(bool IsHidden)
 {
-    IsVisible = !IsHidden;
+    Visible = !IsHidden;
 }
 
 Transform Entity::GetRelativeTransform()

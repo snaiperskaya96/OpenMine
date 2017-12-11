@@ -26,13 +26,14 @@ public:
 
     void AddComponent(class Component *Comp);
     void SetHidden(bool IsHidden);
+    inline bool IsVisible() { return Visible; }
 
     glm::mat4 GetModelMatrix();
 protected:
     std::vector<class Component*> Components;
     glm::mat4 ModelMatrix;
     bool HasBegun = false;
-    bool IsVisible = true;
+    bool Visible = true;
 
 };
 

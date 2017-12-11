@@ -39,6 +39,7 @@ public:
         std::function<void()> Delegate = TaskMap[Thread][0];
         TaskMap[Thread].erase(TaskMap[Thread].begin());
         QueueLockMap[Thread].unlock();
+        return Delegate;
     }
 protected:
     static std::map<TaskThread, std::mutex> QueueLockMap;

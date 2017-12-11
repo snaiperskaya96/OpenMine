@@ -10,8 +10,9 @@
 #include <glm/ext.hpp>
 #include <Entity/Cube.h>
 #include <Handler/Input/InputHandler.h>
-#include <Entity/Chunk.h>
+#include <Entity/Chunk/Chunk.h>
 #include <Utils/Thread/AsyncTask.h>
+#include <Handler/Terrain/TerrainHandler.h>
 #include "OpenMine.h"
 
 GLFWwindow* OpenMine::Window;
@@ -60,7 +61,7 @@ void OpenMine::SetupWindow()
     glCullFace(GL_BACK);
     glFrontFace(GL_CCW);
 
-    glDebugMessageCallback(&OpenMine::GlDebugMessage, nullptr);
+    //glDebugMessageCallback(&OpenMine::GlDebugMessage, nullptr);
 }
 
 /* ... */
@@ -79,7 +80,8 @@ void OpenMine::Init()
 
    // T2.Initialise();
    // T2.SetRelativeLocation({1.2f, -1.0f, 0.5f});
-    new Chunk();
+    TerrainHandler::BuildChunksAroundCoords(Camera::CameraLocation);
+//    new Chunk();
 
     InputHandler::SetInputMode(InputMode::CURSOR, InputModeValue::CURSOR_DISABLED);
 

@@ -6,24 +6,28 @@
 #include <Handler/Input/InputHandler.h>
 #include "Entity.h"
 
+class Chunk;
+
 class Cube : public Entity
 {
 public:
-    Cube();
-    void Draw() override;
+    inline Cube()
+    {
+        std::string Path = File::CreatePath(File::GetExecutableDir() + "/Objects/Cube/CubeTest.obj");
+        for (auto Comp : MeshComponent::FromObj(Path))
+            AddComponent(Comp);
+    }
+
+    inline void Draw() override
+    {
+        Entity::Draw();
+
+    }
+
+    inline void SetChunk(Chunk* Parent) { OwningChunk = Parent; }
+    inline Chunk* GetChunk() { return OwningChunk; }
+protected:
+    Chunk* OwningChunk;
 };
-
-Cube::Cube() : Entity()
-{
-    std::string Path = File::CreatePath(File::GetExecutableDir() + "/Objects/Cube/CubeTest.obj");
-    for (auto Comp : MeshComponent::FromObj(Path))
-        AddComponent(Comp);
-//    InputHandler::OnKeyPress(GLFW_KEY_W, InputAction::KEY_REPEATED, this, &Cube::MoveForward);
-}
-
-void Cube::Draw()
-{
-    Entity::Draw();
-}
 
 #endif OPENMINE_CUBE_H
