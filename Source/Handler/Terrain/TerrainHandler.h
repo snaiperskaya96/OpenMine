@@ -11,8 +11,8 @@
 
 class Chunk;
 
-#define MAX_CHUNKS_X 1
-#define MAX_CHUNKS_Z 1
+#define MAX_CHUNKS_X 3
+#define MAX_CHUNKS_Z 3
 
 struct ChunkContainer
 {

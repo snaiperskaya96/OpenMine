@@ -6,6 +6,7 @@
 #define OPENMINE_MESHCOMPONENT_H
 
 #include "glad/glad.h"
+#include <utility>
 #include <vector>
 #include "glm/detail/type_mat4x4.hpp"
 #include "Component.h"
@@ -19,6 +20,8 @@ public:
     void Draw() override;
 public:
     static std::vector<MeshComponent*> FromObj(std::string& ObjPath);
+    inline void SetVerticles(std::vector<GLfloat> NewVerticles) { Verticles = (NewVerticles); }
+    inline void SetIndices(std::vector<GLuint> NewIndices) { Indices = (NewIndices); }
 protected:
     glm::mat4 ModelMatrix;
     std::vector<GLfloat> Verticles;

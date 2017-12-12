@@ -49,7 +49,7 @@ void OpenMine::SetupWindow()
 
     glfwMakeContextCurrent(Window);
     gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
-    glfwSwapInterval(-1);
+    glfwSwapInterval(0);
 
     glClearColor(0.20f, 0.25f, 0.25f, 0.f);
 
@@ -80,7 +80,15 @@ void OpenMine::Init()
 
    // T2.Initialise();
    // T2.SetRelativeLocation({1.2f, -1.0f, 0.5f});
-    TerrainHandler::BuildChunksAroundCoords(Camera::CameraLocation);
+   // TerrainHandler::BuildChunksAroundCoords(Camera::CameraLocation);
+
+    for (int x = 0; x < 4; x++)
+        for (int z = 0; z < 4; z++)
+            for (int y = 0; y < 4; y++) {
+            auto C = new Cube();
+            C->SetRelativeLocation({2 * x, 2 * y, 2 * z});
+        }
+
 //    new Chunk();
 
     InputHandler::SetInputMode(InputMode::CURSOR, InputModeValue::CURSOR_DISABLED);

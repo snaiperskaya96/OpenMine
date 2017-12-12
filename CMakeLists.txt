@@ -34,7 +34,7 @@ set(SOURCE_FILES Source/OpenMine/OpenMine.cpp Source/OpenMine/OpenMine.h
         Source/Cache/ObjLoaderCache.h Source/Math/Math.cpp Source/Math/Math.h
         Source/Entity/Chunk/Chunk.h Source/Utils/Thread/AsyncTask.cpp Source/Utils/Thread/AsyncTask.h Source/Utils/Thread/AsyncTask.h
         Source/Cache/TextureCache.h Source/Cache/ShaderCache.h Source/Handler/Terrain/TerrainHandler.cpp
-        Source/Handler/Terrain/TerrainHandler.h Source/Entity/Chunk/Chunk.cpp)
+        Source/Handler/Terrain/TerrainHandler.h Source/Entity/Chunk/Chunk.cpp Source/Renderer/Renderer.h Source/Renderer/Renderer.cpp Source/Renderer/Entity/MeshRenderer.cpp Source/Renderer/Entity/MeshRenderer.h)
 
 add_executable(OpenMine main.cpp ${SOURCE_FILES})
 
