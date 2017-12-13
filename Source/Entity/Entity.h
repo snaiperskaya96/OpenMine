@@ -20,9 +20,9 @@ public:
     virtual void Begin();
     virtual void Draw();
 
-    void SetRelativeLocation(glm::vec3 Location);
-    Transform GetRelativeTransform();
-    glm::vec3 GetRelativeLocation();
+    virtual void SetRelativeLocation(glm::vec3 Location);
+    virtual Transform GetRelativeTransform();
+    virtual glm::vec3 GetRelativeLocation();
 
     void AddComponent(class Component *Comp);
     void SetHidden(bool IsHidden);

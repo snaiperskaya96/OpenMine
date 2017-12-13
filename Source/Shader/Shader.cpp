@@ -13,6 +13,7 @@ Shader::Shader(std::vector<ShaderFile> ShaderFiles)
     for (auto& SFile : ShaderFiles) {
         AddShader(SFile);
     }
+
     Link();
 }
 

@@ -6,9 +6,9 @@
 #define OPENMINE_OBJLOADERCACHE_H
 
 #include "BaseCache.h"
-#include <OBJ_Loader.h>
+#include <Utils/Loader/Obj/ObjLoader.h>
 
-class ObjLoaderCache : public BaseCache<objl::Loader>
+class ObjLoaderCache : public BaseCache<ObjLoader>
 {
 //    std::vector<objl::Loader*> BaseCache::Cache;
 };

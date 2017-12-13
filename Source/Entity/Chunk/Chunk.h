@@ -7,7 +7,7 @@
 
 
 #include <thread>
-#include "Entity/Cube.h"
+#include "Entity/Cube/Cube.h"
 #include "PerlinNoise.hpp"
 
 #define CHUNK_X 16

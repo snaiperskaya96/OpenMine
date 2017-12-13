@@ -28,13 +28,16 @@ set(SOURCE_FILES Source/OpenMine/OpenMine.cpp Source/OpenMine/OpenMine.h
         Source/Utils/String/String.h ThirdParty/stb/stb_image_write.h Source/Entity/Entity.cpp
         Source/Entity/Entity.h Source/Cache/BaseCache.h Source/Pool/EntityPool.h
         Source/Pool/Pool.h Source/Camera/Camera.h Source/Camera/Camera.cpp Source/Pool/EntityPool.cpp
-        Source/Pool/Pool.cpp Source/Entity/Cube.h Source/Entity/Triangle.h ThirdParty/OBJ-Loader/Source/OBJ_Loader.h
+        Source/Pool/Pool.cpp Source/Entity/Cube/Cube.h Source/Entity/Triangle.h ThirdParty/OBJ-Loader/Source/OBJ_Loader.h
         Source/Component/Component.cpp Source/Component/Component.h Source/Component/MeshComponent.cpp
         Source/Component/MeshComponent.h Source/Handler/Input/InputHandler.cpp Source/Handler/Input/InputHandler.h
         Source/Cache/ObjLoaderCache.h Source/Math/Math.cpp Source/Math/Math.h
         Source/Entity/Chunk/Chunk.h Source/Utils/Thread/AsyncTask.cpp Source/Utils/Thread/AsyncTask.h Source/Utils/Thread/AsyncTask.h
         Source/Cache/TextureCache.h Source/Cache/ShaderCache.h Source/Handler/Terrain/TerrainHandler.cpp
-        Source/Handler/Terrain/TerrainHandler.h Source/Entity/Chunk/Chunk.cpp Source/Renderer/Renderer.h Source/Renderer/Renderer.cpp Source/Renderer/Entity/MeshRenderer.cpp Source/Renderer/Entity/MeshRenderer.h)
+        Source/Handler/Terrain/TerrainHandler.h Source/Entity/Chunk/Chunk.cpp Source/Renderer/Renderer.h
+        Source/Renderer/Renderer.cpp Source/Renderer/Entity/MeshRenderer.cpp
+        Source/Renderer/Entity/MeshRenderer.h Source/Renderer/Cube/CubeRenderer.cpp Source/Renderer/Cube/CubeRenderer.h
+        Source/Utils/Loader/Obj/ObjLoader.h Source/Entity/Cube/Dirt.cpp Source/Entity/Cube/Dirt.h)
 
 add_executable(OpenMine main.cpp ${SOURCE_FILES})
 

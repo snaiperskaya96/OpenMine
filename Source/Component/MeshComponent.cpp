@@ -8,7 +8,6 @@
 #include "MeshComponent.h"
 #include "Texture/Texture.h"
 #include "Entity/Entity.h"
-#include "OBJ_Loader.h"
 #include "Cache/ObjLoaderCache.h"
 
 MeshComponent::MeshComponent()
@@ -35,20 +34,20 @@ std::vector<MeshComponent *> MeshComponent::FromObj(std::string& ObjPath)
 {
     std::vector<MeshComponent*> Components;
 
-    objl::Loader* ObjLoader = ObjLoaderCache::Get(ObjPath);
+    ObjLoader* Loader = ObjLoaderCache::Get(ObjPath);
 
-    if (!ObjLoader) {
+    if (!Loader) {
         if (!File::Exists(ObjPath)) {
             std::cout << "MeshComponent::FromObj: Invalid obj provided (" << ObjPath << ")";
             return Components;
         }
 
-        ObjLoader = new objl::Loader();
-        ObjLoader->LoadFile(ObjPath);
-        ObjLoaderCache::Add(ObjPath, ObjLoader);
+        Loader = new ObjLoader();
+        Loader->LoadFile(ObjPath);
+        ObjLoaderCache::Add(ObjPath, Loader);
     }
 
-    for (auto& Mesh : ObjLoader->LoadedMeshes) {
+    for (auto& Mesh : Loader->LoadedMeshes) {
         auto NewComponent = new MeshComponent();
         NewComponent->Indices = Mesh.Indices;
 
