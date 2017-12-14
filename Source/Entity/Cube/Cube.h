@@ -14,72 +14,6 @@ public:
     inline Cube()
     {
         RendererId = CubeRenderer::GetInstance()->AddCube(ModelMatrix);
-/*
-        std::string Path = File::CreatePath(File::GetExecutableDir() + "/Objects/Cube/CubeTest.obj");
-        for (auto Comp : MeshComponent::FromObj(Path)) {
-            ((MeshComponent*)Comp)->SetIndices(
-                    {
-                            0, 1, 2,
-                            2, 3, 0,
-
-                            4, 5, 6,
-                            6, 7, 4,
-
-                            8, 9, 10,
-                            10, 11, 8,
-
-                            12, 13, 14,
-                            14, 15, 12,
-
-                            16, 17, 18,
-                            18, 19, 16,
-
-                            20, 21, 22,
-                            22, 23, 20
-                    }
-            );
-
-            ((MeshComponent*)Comp)->SetVerticles(
-                    {
-                            1.f, 0.f, 0.f,
-                            0.f, 0.f, 0.f,
-                            0.f, 1.f, 0.f,
-                            1.f, 1.f, 0.f,
-
-                            //Front
-                            0.f, 0.f, 1.f,
-                            1.f, 0.f, 1.f,
-                            1.f, 1.f, 1.f,
-                            0.f, 1.f, 1.f,
-
-                            //Right
-                            1.f, 0.f, 1.f,
-                            1.f, 0.f, 0.f,
-                            1.f, 1.f, 0.f,
-                            1.f, 1.f, 1.f,
-
-                            //Left
-                            0.f, 0.f, 0.f,
-                            0.f, 0.f, 1.f,
-                            0.f, 1.f, 1.f,
-                            0.f, 1.f, 0.f,
-
-                            //Top
-                            0.f, 1.f, 1.f,
-                            1.f, 1.f, 1.f,
-                            1.f, 1.f, 0.f,
-                            0.f, 1.f, 0.f,
-
-                            //Bottom
-                            0.f, 0.f, 0.f,
-                            1.f, 0.f, 0.f,
-                            1.f, 0.f, 1.f,
-                            0.f, 0.f, 1.f
-                    }
-            );
-            AddComponent(Comp);
-        }
-        */
     }
 
     inline void Draw() override
@@ -94,6 +28,18 @@ public:
     {
         Entity::SetRelativeLocation(Location);
         CubeRenderer::GetInstance()->UpdateModelMatrix(RendererId, ModelMatrix);
+    }
+
+    void SetHidden(bool IsHidden) override
+    {
+        bool OldValue = Visible;
+        Entity::SetHidden(IsHidden);
+        if (Visible == OldValue) return;
+        if (Visible) {
+            RendererId = CubeRenderer::GetInstance()->AddCube(ModelMatrix);
+        } else {
+            CubeRenderer::GetInstance()->RemoveCube(RendererId);
+        }
     }
 
 protected:

@@ -47,7 +47,7 @@ void Chunk::GenerateChunk()
             const int MaxHeight = (int) (CHUNK_Y * PerlinValue);
             for (int Y = 0; Y < MaxHeight; Y++) {
                 auto C = new Cube();
-                C->SetRelativeLocation({(CHUNK_X * this->X) + X * 2, Y * 2, (CHUNK_X * this->Z) + Z * 2});
+                C->SetRelativeLocation({(CHUNK_X * this->X) + X, Y, (CHUNK_X * this->Z) + Z});
                 C->SetChunk(this);
                 C->SetHidden(true);
                 Cubes[X][Z][Y] = C;

@@ -38,7 +38,7 @@ public:
 protected:
     static std::vector<ChunkContainer> Chunks;
 
-    static void CreateChunk(ChunkContainer &NewChunk);
+    static void CreateChunk(ChunkContainer NewChunk);
 };
 
 

@@ -6,6 +6,7 @@
 #define OPENMINE_RENDERER_H
 
 #include <glad/glad.h>
+#include <iostream>
 
 template<typename T>
 class Renderer
@@ -32,11 +33,10 @@ protected:
     static T* Instance;
 
     Renderer(){ Instance = static_cast <T*> (this); };
-    ~Renderer(){  };
+    ~Renderer(){ std::cout << "Renderer has been destroyed." << std::endl; };
 };
 
-template<typename T>
-typename T* Renderer<T>::Instance = 0;
+template<typename T> T* Renderer<T>::Instance = 0;
 
 template<typename T>
 T* Renderer<T>::GetInstance()

@@ -20,16 +20,17 @@ void TerrainHandler::BuildChunksAroundCoords(glm::vec3 Coords)
             if (ExistingChunk == C) Exists = true;
         }
         if (!Exists) {
-            CreateChunk(C);
+            new std::thread(&TerrainHandler::CreateChunk, C);
             return;
         }
     }
 }
 
-void TerrainHandler::CreateChunk(ChunkContainer &NewChunk)
+void TerrainHandler::CreateChunk(ChunkContainer NewChunk)
 {
+    auto C = new Chunk(NewChunk.X, NewChunk.Z);
     //AsyncTask::ExecuteOnThread(TaskThread::GAME_THREAD, [&NewChunk]() {
-       Chunks.push_back({NewChunk.X, NewChunk.Z, new Chunk(NewChunk.X, NewChunk.Z)});
+       Chunks.push_back({NewChunk.X, NewChunk.Z, C});
     std::cout << "Generating Chunk " << NewChunk.X << "-" << NewChunk.Z << std::endl;
     //});
 }

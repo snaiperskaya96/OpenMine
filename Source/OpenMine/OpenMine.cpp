@@ -9,6 +9,7 @@
 #include <Utils/Thread/AsyncTask.h>
 #include "glm/gtx/transform.hpp"
 #include <Renderer/Cube/CubeRenderer.h>
+#include <Handler/Terrain/TerrainHandler.h>
 #include "OpenMine.h"
 
 GLFWwindow* OpenMine::Window;
@@ -73,12 +74,15 @@ void OpenMine::Init()
     Camera::SetLocation({4.f, 4.f, 4.f});
     EntityPool::Init();
 
-    for (int x = 0; x < 16; x++)
+    /*for (int x = 0; x < 16; x++)
         for (int z = 0; z < 16; z++)
-            for (int y = 0; y < 16; y++) {
+            for (int y = 0; y < 128; y++) {
             auto C = new Cube();
             C->SetRelativeLocation({2*x, 2*y, 2*z});
-        }
+        }*/
+
+    CubeRenderer::GetInstance();
+    TerrainHandler::BuildChunksAroundCoords({0.f, 0.f, 0.f});
 
     InputHandler::SetInputMode(InputMode::CURSOR, InputModeValue::CURSOR_DISABLED);
 

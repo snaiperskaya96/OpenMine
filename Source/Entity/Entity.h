@@ -25,7 +25,7 @@ public:
     virtual glm::vec3 GetRelativeLocation();
 
     void AddComponent(class Component *Comp);
-    void SetHidden(bool IsHidden);
+    virtual void SetHidden(bool IsHidden);
     inline bool IsVisible() { return Visible; }
 
     glm::mat4 GetModelMatrix();
