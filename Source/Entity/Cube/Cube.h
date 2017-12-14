@@ -47,4 +47,4 @@ protected:
     int RendererId;
 };
 
-#endif OPENMINE_CUBE_H
+#endif // OPENMINE_CUBE_H

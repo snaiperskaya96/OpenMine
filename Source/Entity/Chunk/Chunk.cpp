@@ -27,10 +27,10 @@ inline constexpr const Type& Clamp(const Type& x, const Type& min, const Type& m
 
 void Chunk::GenerateChunk()
 {
-    double frequency = 4;
+    double frequency = 1;
     frequency = Clamp(frequency, 0.1, 64.0);
 
-    int octaves = 8;
+    int octaves = 1;
     octaves = Clamp(octaves, 1, 16);
 
     std::uint32_t seed = 12345;

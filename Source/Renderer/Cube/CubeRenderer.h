@@ -33,7 +33,15 @@ protected:
     void Init() override;
     std::vector<CubeModelMatrix>::iterator GetIteratorAtIndex(int Index);
 protected:
-    std::mutex ModelMatricesMutex;
+    std::mutex NewModelMatricesMutex;
+    std::mutex UpdatedModelMatricesMutex;
+    std::mutex DeletedModelMatricesMutex;
+    std::mutex GetIteratorMutex;
+
+    float LastNewModelMatrixTime = 0;
+    float LastUpdatedModelMatrixTime = 0;
+    float LastDeletedModelMatrixTime = 0;
+
     class Shader* CubeShader;
     int ModelMatricesIndex = 0;
     GLuint VerticlesVbo = 0;

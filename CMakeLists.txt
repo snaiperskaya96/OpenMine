@@ -29,8 +29,7 @@ set(SOURCE_FILES Source/OpenMine/OpenMine.cpp Source/OpenMine/OpenMine.h
         Source/Entity/Entity.h Source/Cache/BaseCache.h Source/Pool/EntityPool.h
         Source/Pool/Pool.h Source/Camera/Camera.h Source/Camera/Camera.cpp Source/Pool/EntityPool.cpp
         Source/Pool/Pool.cpp Source/Entity/Cube/Cube.h Source/Entity/Triangle.h ThirdParty/OBJ-Loader/Source/OBJ_Loader.h
-        Source/Component/Component.cpp Source/Component/Component.h Source/Component/MeshComponent.cpp
-        Source/Component/MeshComponent.h Source/Handler/Input/InputHandler.cpp Source/Handler/Input/InputHandler.h
+        Source/Handler/Input/InputHandler.cpp Source/Handler/Input/InputHandler.h
         Source/Cache/ObjLoaderCache.h Source/Math/Math.cpp Source/Math/Math.h
         Source/Entity/Chunk/Chunk.h Source/Utils/Thread/AsyncTask.cpp Source/Utils/Thread/AsyncTask.h Source/Utils/Thread/AsyncTask.h
         Source/Cache/TextureCache.h Source/Cache/ShaderCache.h Source/Handler/Terrain/TerrainHandler.cpp

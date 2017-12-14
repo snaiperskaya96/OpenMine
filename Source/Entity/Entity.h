@@ -24,13 +24,11 @@ public:
     virtual Transform GetRelativeTransform();
     virtual glm::vec3 GetRelativeLocation();
 
-    void AddComponent(class Component *Comp);
     virtual void SetHidden(bool IsHidden);
     inline bool IsVisible() { return Visible; }
 
     glm::mat4 GetModelMatrix();
 protected:
-    std::vector<class Component*> Components;
     glm::mat4 ModelMatrix;
     bool HasBegun = false;
     bool Visible = true;

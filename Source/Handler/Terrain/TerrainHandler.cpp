@@ -21,7 +21,6 @@ void TerrainHandler::BuildChunksAroundCoords(glm::vec3 Coords)
         }
         if (!Exists) {
             new std::thread(&TerrainHandler::CreateChunk, C);
-            return;
         }
     }
 }

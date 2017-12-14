@@ -5,6 +5,8 @@
 #include <Utils/FileSystem/File.h>
 #include <Shader/Shader.h>
 #include <Camera/Camera.h>
+#include <GLFW/glfw3.h>
+#include <memory>
 #include "Cache/ObjLoaderCache.h"
 #include "Renderer/Cube/CubeRenderer.h"
 
@@ -67,43 +69,72 @@ void CubeRenderer::Init()
 
 int CubeRenderer::AddCube(glm::mat4 ModelMatrix)
 {
-    ModelMatricesMutex.lock();
+    NewModelMatricesMutex.lock();
     TemporaryNewModelMatrices.push_back({ModelMatrix, ModelMatricesIndex++});
 //    CubeModelMatrices.push_back({ModelMatrix, ModelMatricesIndex++});
-    ModelMatricesMutex.unlock();
+    NewModelMatricesMutex.unlock();
     return ModelMatricesIndex;
 }
 
 std::vector<CubeModelMatrix>::iterator CubeRenderer::GetIteratorAtIndex(int Index)
 {
+    NewModelMatricesMutex.lock();
     for (auto It = CubeModelMatrices.begin(); It < CubeModelMatrices.end(); ++It) {
         if (It.base()->Index == Index) {
+            NewModelMatricesMutex.unlock();
             return It;
         }
     }
+    NewModelMatricesMutex.unlock();
+
     return CubeModelMatrices.end();
 }
 
 void CubeRenderer::RemoveCube(int Index)
 {
-//    ModelMatricesMutex.lock();
     auto It = GetIteratorAtIndex(Index);
+
+    DeletedModelMatricesMutex.lock();
     if (It != CubeModelMatrices.end()) {
         TemporaryRemovedModelMatrices.push_back(It);
 //        CubeModelMatrices.erase(It);
     }
-//    ModelMatricesMutex.unlock();
+    DeletedModelMatricesMutex.unlock();
 }
 
 void CubeRenderer::Draw()
 {
     Renderer::Draw();
 
-    if (TemporaryNewModelMatrices.size() > 50) {
-        ModelMatricesMutex.lock();
+    float CurrentTime = (float) glfwGetTime();
+
+    if ((TemporaryNewModelMatrices.size() > 50 || CurrentTime - LastNewModelMatrixTime > 0.01) && NewModelMatricesMutex.try_lock()) {
         CubeModelMatrices.insert(CubeModelMatrices.end(), TemporaryNewModelMatrices.begin(), TemporaryNewModelMatrices.end());
-        TemporaryNewModelMatrices.empty();
-        ModelMatricesMutex.unlock();
+        TemporaryNewModelMatrices.clear();
+        LastNewModelMatrixTime = (float) glfwGetTime();
+
+        NewModelMatricesMutex.unlock();
+    }
+
+    if ((TemporaryModifiedModelMatrices.size() > 50 || CurrentTime - LastUpdatedModelMatrixTime > 0.01) && UpdatedModelMatricesMutex.try_lock()) {
+        for (auto& ModifiedModel : TemporaryModifiedModelMatrices) {
+            GetIteratorAtIndex(ModifiedModel.Index).base()->Coords = ModifiedModel.Coords;
+        }
+
+        LastUpdatedModelMatrixTime = (float) glfwGetTime();
+        TemporaryModifiedModelMatrices.clear();
+        UpdatedModelMatricesMutex.unlock();
+    }
+
+    if ((TemporaryRemovedModelMatrices.size() > 50 || CurrentTime - LastDeletedModelMatrixTime > 0.01) && DeletedModelMatricesMutex.try_lock()) {
+
+        for (auto& It : TemporaryRemovedModelMatrices) {
+            CubeModelMatrices.erase(It);
+        }
+
+        LastDeletedModelMatrixTime = (float) glfwGetTime();
+        TemporaryRemovedModelMatrices.clear();
+        DeletedModelMatricesMutex.unlock();
     }
 
     glm::mat4 MvpMat = Camera::ProjectionMatrix * Camera::ViewMatrix;
@@ -115,22 +146,22 @@ void CubeRenderer::Draw()
 
     glBindBuffer( GL_ARRAY_BUFFER, ModelMatricesVbo);
 
-    ModelMatricesMutex.lock();
     glBufferData( GL_ARRAY_BUFFER, ((sizeof(float) * 4 * 4) +  (sizeof(int))) * CubeModelMatrices.size(), &CubeModelMatrices[0], GL_DYNAMIC_DRAW );
     glDrawElementsInstanced( GL_TRIANGLES, NumberOfIndices, GL_UNSIGNED_INT, 0, (GLsizei) CubeModelMatrices.size());
-    ModelMatricesMutex.unlock();
 
     UnbindVao();
 }
 
 void CubeRenderer::UpdateModelMatrix(int Index, glm::mat4 NewMatrix)
 {
-    ModelMatricesMutex.lock();
     auto It = GetIteratorAtIndex(Index);
+
+    UpdatedModelMatricesMutex.lock();
+
     if (It != CubeModelMatrices.end()) {
         CubeModelMatrix Mm = {NewMatrix, Index};
         TemporaryModifiedModelMatrices.push_back(Mm);
-    //    It.base()->Coords = NewMatrix;
     }
-    ModelMatricesMutex.unlock();
+
+    UpdatedModelMatricesMutex.unlock();
 }

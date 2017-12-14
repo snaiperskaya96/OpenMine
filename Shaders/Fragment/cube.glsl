@@ -1,7 +1,8 @@
 #version 450
 
 out vec4 Colour;
+in vec3 Position;
 
 void main() {
-    Colour = vec4(1.0, 0.0, 0.0, 1.0);
+    Colour = vec4(Position.xy, Position.yz);
 }
