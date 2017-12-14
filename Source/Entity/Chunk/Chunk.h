@@ -7,11 +7,11 @@
 
 
 #include <thread>
-#include "Entity/Cube.h"
+#include "Entity/Cube/Cube.h"
 #include "PerlinNoise.hpp"
 
 #define CHUNK_X 16
-#define CHUNK_Y 4
+#define CHUNK_Y 16
 #define CHUNK_Z 16
 
 class Chunk : public Entity

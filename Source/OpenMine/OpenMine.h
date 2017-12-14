@@ -6,6 +6,7 @@
 #define OPENMINE_OPENMINE_H
 
 #include "glad/glad.h"
+#include <GLFW/glfw3.h>
 
 class OpenMine
 {

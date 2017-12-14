@@ -3,18 +3,13 @@
 //
 
 #include "Entity.h"
-#include "Component/Component.h"
 #include <Pool/EntityPool.h>
 #include <glm/ext.hpp>
 #include <glm/gtx/matrix_decompose.hpp>
-#include <Math/Math.h>
 
 void Entity::Draw()
 {
     if (!Visible) return;
-    for (auto Comp : Components) {
-        Comp->Draw();
-    }
 }
 
 void Entity::Begin()
@@ -36,13 +31,6 @@ void Entity::SetRelativeLocation(glm::vec3 Location)
 glm::mat4 Entity::GetModelMatrix()
 {
     return ModelMatrix;
-}
-
-void Entity::AddComponent(Component* Comp)
-{
-    Comp->SetOwner(this);
-    Comp->Init();
-    Components.push_back(Comp);
 }
 
 void Entity::SetHidden(bool IsHidden)

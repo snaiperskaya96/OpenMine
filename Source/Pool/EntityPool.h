@@ -6,6 +6,7 @@
 #define OPENMINE_ENTITYPOOL_H
 
 #include <Entity/Entity.h>
+#include <mutex>
 #include "Pool.h"
 
 class EntityPool : public Pool
@@ -17,17 +18,13 @@ public:
 
     inline static void RegisterEntity(Entity* NewEntity)
     {
+        EntityLock.lock();
         Entities.push_back(NewEntity);
+        EntityLock.unlock();
     }
 
     inline static void Draw()
     {
-        for (auto Ent : Entities) {
-            if (!Ent->HasBegun) {
-                Ent->Begin();
-            }
-            Ent->Draw();
-        }
     }
 
     inline static void Destroy()
@@ -38,6 +35,7 @@ public:
     }
 protected:
     static std::vector<Entity*> Entities;
+    static std::mutex EntityLock;
 };
 
 #endif //OPENMINE_ENTITYPOOL_H

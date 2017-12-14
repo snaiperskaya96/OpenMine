@@ -5,3 +5,4 @@
 #include "Pool/EntityPool.h"
 
 std::vector<Entity*> EntityPool::Entities;
+std::mutex EntityPool::EntityLock;

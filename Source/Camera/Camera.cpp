@@ -87,7 +87,7 @@ void Camera::Draw()
     DeltaTime = CurrentFrame - LastFrame;
     glfwSetWindowTitle(OpenMine::GetWindow(), ("DeltaTime: " + std::to_string(DeltaTime) + " - FPS: " + std::to_string(1.f / DeltaTime)).c_str());
     LastFrame = CurrentFrame;
-    float CameraSpeed = 2.5f * DeltaTime;
+    float CameraSpeed = 10.f * DeltaTime;
 
     ViewMatrix = glm::lookAt(CameraLocation, CameraLocation + CameraFront, CameraUp);
 

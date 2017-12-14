@@ -27,10 +27,10 @@ inline constexpr const Type& Clamp(const Type& x, const Type& min, const Type& m
 
 void Chunk::GenerateChunk()
 {
-    double frequency = 4;
+    double frequency = 1;
     frequency = Clamp(frequency, 0.1, 64.0);
 
-    int octaves = 8;
+    int octaves = 1;
     octaves = Clamp(octaves, 1, 16);
 
     std::uint32_t seed = 12345;
@@ -47,7 +47,7 @@ void Chunk::GenerateChunk()
             const int MaxHeight = (int) (CHUNK_Y * PerlinValue);
             for (int Y = 0; Y < MaxHeight; Y++) {
                 auto C = new Cube();
-                C->SetRelativeLocation({(CHUNK_X * this->X) + X * 2, Y * 2, (CHUNK_X * this->Z) + Z * 2});
+                C->SetRelativeLocation({(CHUNK_X * this->X) + X, Y, (CHUNK_X * this->Z) + Z});
                 C->SetChunk(this);
                 C->SetHidden(true);
                 Cubes[X][Z][Y] = C;

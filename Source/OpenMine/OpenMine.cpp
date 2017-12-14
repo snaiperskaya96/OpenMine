@@ -1,17 +1,14 @@
 ﻿//
 // Created by snaiperskaya on 03/12/17.
 //
-#include <Shader/Shader.h>
-#include "GLFW/glfw3.h"
-#include <glm/detail/type_mat.hpp>
-#include <glm/detail/type_mat2x2.hpp>
+#include <iostream>
 #include <Camera/Camera.h>
-#include <Pool/EntityPool.h>
-#include <glm/ext.hpp>
-#include <Entity/Cube.h>
 #include <Handler/Input/InputHandler.h>
-#include <Entity/Chunk/Chunk.h>
+#include <Pool/EntityPool.h>
+#include <Entity/Cube/Cube.h>
 #include <Utils/Thread/AsyncTask.h>
+#include "glm/gtx/transform.hpp"
+#include <Renderer/Cube/CubeRenderer.h>
 #include <Handler/Terrain/TerrainHandler.h>
 #include "OpenMine.h"
 
@@ -49,7 +46,7 @@ void OpenMine::SetupWindow()
 
     glfwMakeContextCurrent(Window);
     gladLoadGLLoader((GLADloadproc) glfwGetProcAddress);
-    glfwSwapInterval(-1);
+    glfwSwapInterval(0);
 
     glClearColor(0.20f, 0.25f, 0.25f, 0.f);
 
@@ -77,11 +74,15 @@ void OpenMine::Init()
     Camera::SetLocation({4.f, 4.f, 4.f});
     EntityPool::Init();
 
+    /*for (int x = 0; x < 16; x++)
+        for (int z = 0; z < 16; z++)
+            for (int y = 0; y < 128; y++) {
+            auto C = new Cube();
+            C->SetRelativeLocation({2*x, 2*y, 2*z});
+        }*/
 
-   // T2.Initialise();
-   // T2.SetRelativeLocation({1.2f, -1.0f, 0.5f});
-    TerrainHandler::BuildChunksAroundCoords(Camera::CameraLocation);
-//    new Chunk();
+    CubeRenderer::GetInstance();
+    TerrainHandler::BuildChunksAroundCoords({0.f, 0.f, 0.f});
 
     InputHandler::SetInputMode(InputMode::CURSOR, InputModeValue::CURSOR_DISABLED);
 
@@ -89,7 +90,8 @@ void OpenMine::Init()
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
         Camera::Draw();
-        EntityPool::Draw();
+        //EntityPool::Draw();
+        CubeRenderer::GetInstance()->Draw();
 
         if (AsyncTask::IsTaskAvailable(TaskThread::GAME_THREAD)) {
             AsyncTask::GetTaskFromQueue(TaskThread::GAME_THREAD)();
